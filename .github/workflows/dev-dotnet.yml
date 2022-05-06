@@ -10,15 +10,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 3.1.x
+        
     - name: Restore dependencies
       run: dotnet restore
+      
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      
     - name: Test
       run: dotnet test --no-restore --verbosity normal --logger trx --results-directory "TestResults" /p:CollectCoverage=true /p:CoverletOutputFormat=opencover
     - uses: codecov/codecov-action@v2
@@ -27,6 +31,14 @@ jobs:
         name: codecov-umbrella
         fail_ci_if_error: true
         verbose: true
+        
+    - name: Create an Issue
+      if: failure()
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/ultimate_issue_template.md 
         
     - name: Publish Test
       uses: dorny/test-reporter@v1
