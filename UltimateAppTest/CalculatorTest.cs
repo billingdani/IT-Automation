@@ -14,7 +14,7 @@ namespace UltimateApp.Test
         public void AddTest()
         {
             int? retVal = Calculator.calculate(2, 3, Operation.Add);
-            Assert.AreEqual(5, retVal);
+            Assert.AreEqual(9, retVal);
         }
         [TestMethod]
         public void SubtractTest()
