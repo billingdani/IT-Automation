@@ -29,3 +29,10 @@ jobs:
         name: Test Results on dev
         path: ./TestResults/*.trx
         reporter: dotnet-trx
+
+    - uses: codecov/codecov-action@v2
+      with:
+        flags: unittests
+        name: codecov-umbrella
+        fail_ci_if_error: true
+        verbose: true
