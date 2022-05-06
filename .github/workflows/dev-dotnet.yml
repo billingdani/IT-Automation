@@ -25,12 +25,13 @@ jobs:
     - name: Create Release
       uses: ncipollo/release-action@v1.10.0
       with:
-        tag: "1.1"
+        tag: "1.2"
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: "./UltimateApp/bin/Release/netcoreapp3.1/UltimateApp"
         
     - name: Publish Test
       uses: dorny/test-reporter@v1
+      if: always()
       with:
         name: Test Results on dev
         path: ./TestResults/*.trx
